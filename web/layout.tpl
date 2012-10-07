@@ -16,14 +16,18 @@
 		<script src="/script/rbplayer.js"></script>
 		<script>
 		    var updateTimer;
-			$(document).bind("pageshow", function() {
+			$(document).bind("pagechange", function() {
 				initialize();
 				
-				var updater = new playerInfoUpdater();
+				var updater = new playerInfoUpdater(true);
 				updater.update();
 				updateTimer = $.timer(function() {
 					updater.update();
 				}, 1000, true);
+			});
+			
+			$(document).bind("pageload", function() {
+				(new playerInfoUpdater(false)).update();
 			});
 			
 			$(document).bind("pagebeforechange", function() {
@@ -47,23 +51,25 @@
           			<p class="tooltip_content"></p>
 				</div>
 				
-				<div style="margin:auto;text-align:center;">
-				    <div style="width:150px;margin:auto;">
-						<label for="volumeSlider">Volume:</label>
-		                <input id="volumeSlider" name="volumeSlider" type="range" min="0" max="100" data-highlight="true" data-mini="true" />
-	                </div>
-					<div data-role="controlgroup" data-type="horizontal">
-					    <a id="prevButton" href="#" data-role="button">Previous</a>
-						<a id="playButton" href="#" data-role="button">Play</a>
-						<a id="pauseButton" href="#" data-role="button">Pause</a>
-						<a id="stopButton" href="#" data-role="button">Stop</a>
-						<a id="nextButton" href="#" data-role="button">Next</a>
-					</div>
-					<input id="seekSlider" type="range" min="0" max="100" data-highlight="true" data-mini="true" />
-				</div>
 				<div style="margin-top:20px">		
 				%include
 				</div>
+			</div>
+			<div data-role="footer" data-id="playerControl" data-position="fixed">
+                 <div style="margin:auto;text-align:center;" data-id="playerControl">
+                    <div style="width:150px;margin:auto;">
+                        <label for="volumeSlider">Volume:</label>
+                        <input class="volumeSlider" name="volumeSlider" type="range" min="0" max="100" data-highlight="true" data-mini="true" />
+                    </div>
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <a class="prevButton" href="#" data-role="button">Previous</a>
+                        <a class="playButton" href="#" data-role="button">Play</a>
+                        <a class="pauseButton" href="#" data-role="button">Pause</a>
+                        <a class="stopButton" href="#" data-role="button">Stop</a>
+                        <a class="nextButton" href="#" data-role="button">Next</a>
+                    </div>
+                    <input class="seekSlider" type="range" min="0" max="100" data-highlight="true" data-mini="true" />
+                </div>
 			</div>
 		</div>
 	</body>

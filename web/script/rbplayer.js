@@ -1,12 +1,12 @@
 function initialize() {
-	$("a.popup_select_link").click(function() {
+	$(".ui-page-active a.popup_select_link").click(function() {
 		var entry_id = $(this).data("rb-entry-id");
 		$("#popup_select_" + entry_id).popup("open", {
 			transition : "pop"
 		});
 	});
 	
-	$("a.track_link").click(
+	$(".ui-page-active a.track_link").click(
 			function() {
 				var $link = $(this);
 				var entry_id = $link.data("rb-entry-id");
@@ -25,24 +25,30 @@ function initialize() {
 						});
 			});
 	
-	$("#popupTooltip").popup({
+	$(".ui-page-active #popupTooltip").popup({
 		history : false,
 		positionTo : "window"
 	});
 }
 
-function playerInfoUpdater() {
+function playerInfoUpdater(activePage) {
+	if (activePage === true) {
+		var jqPrefix = ".ui-page-active ";
+	} else {
+		jqPrefix = "";
+	}
+	
 	this.updateVolume = true;
 	this.updatePosition = true;
 	
 	var updater = this;
 	
-	var $playButton = $("#playButton");
-	var $pauseButton = $("#pauseButton");
-	var $stopButton = $("#stopButton");
+	var $playButton = $(jqPrefix + ".playButton");
+	var $pauseButton = $(jqPrefix + ".pauseButton");
+	var $stopButton = $(jqPrefix + ".stopButton");
 	
-	var $volumeSlider = $("#volumeSlider");
-	var $seekSlider = $("#seekSlider");
+	var $volumeSlider = $(jqPrefix + ".volumeSlider");
+	var $seekSlider = $(jqPrefix + ".seekSlider");
 	
 	// disable volume update while dragging
 	$volumeSlider.on("slidestart", function() {
