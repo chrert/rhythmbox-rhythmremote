@@ -4,9 +4,9 @@ The goal of this project is to create a fully functional mobile web-interface fo
 It's implemented as an Rhythmbox plugin written in python. The plugin starts a local webserver on 0.0.0.0:8001 (or localhost), which handles the requests of the browser.
 
 ## Screenshots
-![Search interprets](https://raw.github.com/erti/RhythmRemote/master/screenshots/interprets.png "Search interprets")
+![Search interprets](https://raw.github.com/erti/rhythmbox-rhythmremote/master/screenshots/interprets.png "Search interprets")
 
-![Play track](https://raw.github.com/erti/RhythmRemote/master/screenshots/play.png "Play tracks")
+![Play track](https://raw.github.com/erti/rhythmbox-rhythmremote/master/screenshots/play.png "Play tracks")
 
 ## Prerequisites
 
