@@ -19,7 +19,7 @@ Contributors:
 	<ul data-role="listview" data-inset="true" style="min-width:210px;" data-theme="b">
 		<li data-role="divider" data-theme="a">Select action</li>
 		<li><a class="track_link" data-rb-entry-id="{{track[0]}}" data-rb-entry-name="{{track[1]}}" href="#">Play</a></li>
-		<li><a href="#">Add to Queue</a></li>
+		<li><a class="queue_link" data-rb-entry-id={{track[0]}} data-rb-entry-name="{{track[1]}}" href="#">Add to Queue</a></li>
 		<li><a href="#">Add to Playlist</a></li>
 		<li><a href="#">Properties</a></li>
 	</ul>

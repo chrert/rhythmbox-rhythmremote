@@ -92,25 +92,44 @@ class PlayerControl(object):
     def play_entry(self, entry_id):
         self.__player.play_entry(self.__dbaccess.get_entry(entry_id), self.__queue)
         
+    def add_entry_to_queue(self, entry_id):
+        self.__queue.add_entry(self.__dbaccess.get_entry(entry_id), -1)
+        
     def stop(self):
         self.__player.stop()
         
     def pause(self):
         self.__player.pause()
+    
+    def has_next(self):
+        return self.__player.props.has_next
+    
+    def has_prev(self):
+        return self.__player.props.has_prev
+    
+    def next(self):
+        try:
+            self.__player.do_next()
+        except:
+            pass
         
     def previous(self):
-        self.__player.do_previous()
-        
-    def next(self):
-        self.__player.do_next()
+        try:
+            self.__player.do_previous()
+        except:
+            pass
         
     def seek(self, position):
-        self.__player.seek(position);
+        if self.has_prev():
+            self.__player.seek(position);
         
     def is_playing(self):
         return self.__player.get_playing()[1]
     
     def get_playing_entry_id(self):
+        entry = self.__player.get_playing_entry()
+        if (entry is None):
+            return -1
         return self.__player.get_playing_entry().get_ulong(RB.RhythmDBPropType.ENTRY_ID)
     
     def get_playing_entry_str(self):

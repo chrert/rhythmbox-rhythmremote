@@ -48,6 +48,11 @@ def play_entry(entry_id):
     player.play_entry(entry_id)
     return "1"
 
+@bottle.route("/add_to_queue/<entry_id:int>")
+def add_to_queue(entry_id):
+    PlayerControl().add_entry_to_queue(entry_id)
+    return "1"
+
 @bottle.route("/play")
 def play():
     PlayerControl().play()
@@ -85,11 +90,14 @@ def set_volume(volume):
 @bottle.route("/playerinfo")
 def get_player_info():
     player = PlayerControl()
-    return {"volume"  : player.get_volume(),
-            "playing" : player.is_playing(),
-            "title"   : player.get_playing_entry_str(),
-            "duration": player.get_playing_duration(),
-            "position": player.get_playing_time()}
+    return {"volume"       : player.get_volume(),
+            "playing"      : player.is_playing(),
+            "play_or_pause": player.get_playing_entry_id() >= 0,
+            "has_next"     : player.has_next(),
+            "has_prev"     : player.has_prev(),
+            "title"        : player.get_playing_entry_str(),
+            "duration"     : player.get_playing_duration(),
+            "position"     : player.get_playing_time()}
 
 def order_set(_set):
     return sorted(list(_set))

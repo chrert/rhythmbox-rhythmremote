@@ -10,6 +10,8 @@
  ******************************************************************************/
 
 function initialize() {
+	var updater = new playerInfoUpdater();
+	
 	$(".ui-page-active a.popup_select_link").click(function() {
 		var entry_id = $(this).data("rb-entry-id");
 		$("#popup_select_" + entry_id).popup("open", {
@@ -17,24 +19,49 @@ function initialize() {
 		});
 	});
 	
-	$(".ui-page-active a.track_link").click(
-			function() {
-				var $link = $(this);
-				var entry_id = $link.data("rb-entry-id");
-				$.ajax({
-					url : "/play/" + entry_id,
-					type : "GET"
-				}).success(
-						function() {
-							$("#popup_select_" + entry_id).popup("close");
-							var entry_name = $link.data("rb-entry-name");
-							$("#popupTooltip > p.tooltip_content").text(
-									"Now playing: " + entry_name);
-							$("#popupTooltip").popup("open", {
-								transition : "pop"
-							});
-						});
+	$(".ui-page-active a.track_link").click(function() {
+		var $link = $(this);
+		var entry_id = $link.data("rb-entry-id");
+		$.ajax({
+			url  : "/play/" + entry_id,
+			type : "GET"
+		}).success(function() {
+			$("#popup_select_" + entry_id).popup("close");
+			var entry_name = $link.data("rb-entry-name");
+			$("#popupTooltip > p.tooltip_content").text(
+					"Now playing: " + entry_name);
+			$("#popupTooltip").popup("open", {
+				transition : "pop"
 			});
+		});
+	});
+	
+	$(".ui-page-active a.queue_link").click(function() {
+		var $link = $(this);
+		var entry_id = $link.data("rb-entry-id");
+		$.ajax({
+			url  : "/add_to_queue/" + entry_id,
+			type : "GET"
+		}).success(function() {
+			$("#poupup_select_" + entry_id).popup("close");
+			var entry_name = $link.data("rb-entry-name");
+			$("#popupTooltip > p.tooltip_content").text(
+					entry_name + " added to queue!");
+			$("#popupTooltip").popup("open", {
+				transition : "pop"
+			});
+		});
+	});
+	
+	$(".control_button").click(function() {
+		var action = "/" + $(this).data("rb-action");
+		$.ajax({
+			url  : action,
+			type : "GET"
+		}).success(function() {
+			updater.update();
+		});
+	});
 	
 	$(".ui-page-active #popupTooltip").popup({
 		history : false,
@@ -57,6 +84,9 @@ function playerInfoUpdater(activePage) {
 	var $playButton = $(jqPrefix + ".playButton");
 	var $pauseButton = $(jqPrefix + ".pauseButton");
 	var $stopButton = $(jqPrefix + ".stopButton");
+	
+	var $nextButton = $(jqPrefix + ".nextButton");
+	var $prevButton = $(jqPrefix + ".prevButton");
 	
 	var $volumeSlider = $(jqPrefix + ".volumeSlider");
 	var $seekSlider = $(jqPrefix + ".seekSlider");
@@ -117,12 +147,15 @@ function playerInfoUpdater(activePage) {
 			if (data.playing === true) {
 				$playButton.hide();
 				$pauseButton.show();
-				toggleLink($stopButton, true);
 			} else {
 				$playButton.show();
 				$pauseButton.hide();
-				toggleLink($stopButton, false);
 			}
+			toggleLink($playButton, data.play_or_pause);
+			toggleLink($pauseButton, data.play_or_pause);
+			toggleLink($stopButton, data.playing && data.play_or_pause);
+			toggleLink($prevButton, data.has_prev);
+			toggleLink($nextButton, data.has_next);
 			
 			// set volume slider
 			if (updater.updateVolume === true) {
