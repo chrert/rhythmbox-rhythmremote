@@ -1,9 +1,0 @@
-[Plugin]
-Loader=python
-Module=src
-IAge=2
-Name=Rhythmwebfork
-Description=A web interface for Rhythmbox
-Authors=fossfreedom <foss.freedom@gmail.com> orig. Michael Gratton <mike@vee.net>
-Copyright=Copyright © 2012 fossfreedom
-Website=https://github.com/fossfreedom/rhythmweb
