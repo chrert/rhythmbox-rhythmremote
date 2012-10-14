@@ -167,6 +167,10 @@ function playerInfoUpdater(activePage) {
 			if (updater.updatePosition === true) {
 				$seekSlider.attr("max", data.duration).val(data.position).slider("refresh");
 			}
+			
+			// set song information
+			$("div.song_information").toggle(data.play_or_pause);
+			$("span.song_information").text(data.title);
 		});
 	}
 }

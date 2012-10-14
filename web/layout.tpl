@@ -68,6 +68,10 @@ Contributors:
 			</div>
 			<div data-role="footer" data-id="playerControl" data-position="fixed">
                  <div style="margin:auto;text-align:center;" data-id="playerControl">
+                    <div class="song_information" style="display:none;">
+                        <div>Now playing:</div>
+                        <span class="song_information"></span>
+                    </div>
                     <div style="width:150px;margin:auto;">
                         <label for="volumeSlider">Volume:</label>
                         <input class="volumeSlider" name="volumeSlider" type="range" min="0" max="100" data-highlight="true" data-mini="true" />
