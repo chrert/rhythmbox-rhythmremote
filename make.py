@@ -9,7 +9,7 @@
 # -     Christian Ertler - initial API and implementation
 # ------------------------------------------------------------------------------
 
-import os, sys, subprocess
+import os, sys, subprocess, shutil
 
 __plugin_dir = os.path.expanduser("~/.local/share/rhythmbox/plugins/")
 __plugin_name = "RhythmRemote"
@@ -21,13 +21,19 @@ def __cmd_exists(cmd):
     except OSError:
         print "%s not found on path" % myexec
 
+def __unlink_project():
+    if (os.path.lexists(__plugin_dir + __plugin_name.lower())):
+        try:
+            os.unlink(__plugin_dir + __plugin_name.lower())
+        except:
+            shutil.rmtree(__plugin_dir + __plugin_name.lower())
 
 def __install():
-    pass
+    __unlink_project()
+    shutil.copytree(os.path.abspath("."), __plugin_dir + __plugin_name.lower()) # TODO
 
 def __run():
-    if (os.path.lexists(__plugin_dir + __plugin_name.lower())):
-        os.unlink(__plugin_dir + __plugin_name.lower())
+    __unlink_project()
     os.symlink(os.path.abspath("."), __plugin_dir + __plugin_name.lower())
     os.execvp("rhythmbox", ["rhythmbox", "-D", __plugin_name.lower()])
 

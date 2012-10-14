@@ -16,6 +16,18 @@ It's implemented as an Rhythmbox plugin written in python. The plugin starts a l
 
 The plugin is currently tested with Rhythmbox 2.96 and 2.97 on Debian testing (wheezy) and Firefox 10+ only.
 
+## Installation
+
+Simply run the python script make.py without arguments. The script will check the dependencies, create the plugin folder
+and symlink the plugin into that folder. Additionally it will start rhythmbox without debug output enabled for the plugin.
+
+If you want to install the plugin, run: 
+    python make.py install
+
+This will copy the plugin-files to ~/.local/share/rhythmbox/plugins
+
+The repository also includes an Eclipse-Project (with PyDev Extension) with configured Debug/Run configurations. 
+
 ## Functionality
 
 ### What works
