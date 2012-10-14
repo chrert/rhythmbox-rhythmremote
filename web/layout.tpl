@@ -12,7 +12,7 @@ Contributors:
 <!DOCTYPE html> 
 <html>
 	<head>
-		<title>Rhythmwebfork</title>
+		<title>RhythmRemote</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="/script/jquery.mobile/jquery.mobile-1.2.0.min.css" />
@@ -54,7 +54,7 @@ Contributors:
 				%if defined('backlink'):
 				<a data-transition="slidefade" data-direction="reverse" data-icon="back" href="{{backlink[0]}}">{{backlink[1]}}</a>
 				%end
-				<h1>Rhythmwebfork</h1>
+				<h1>RhythmRemote</h1>
 			</div>
 			
 			<div data-role="content">
