@@ -1,8 +1,13 @@
-'''
-Created on 06.10.2012
-
-@author: chri
-'''
+# ------------------------------------------------------------------------------
+# - Copyright (c) 2012 Christian Ertler.
+# - All rights reserved. This program and the accompanying materials
+# - are made available under the terms of the GNU Public License v3.0
+# - which accompanies this distribution, and is available at
+# - http://www.gnu.org/licenses/gpl.html
+# - 
+# - Contributors:
+# -     Christian Ertler - initial API and implementation
+# ------------------------------------------------------------------------------
 
 from gi.repository import GObject
 
@@ -56,30 +61,6 @@ class WSGIRefWebServer(IWebServer):
     def stop(self):
         GObject.source_remove(self.watch_id)
         self._is_running = False
-
-"""
-import threading
-from tornado import httpserver, ioloop, wsgi
-
-class TornadoWebServer(IWebServer, threading.Thread):
-    def __init__(self, host, port, settings):
-        IWebServer.__init__(self, host, port, settings)
-        threading.Thread.__init__(self)
-        
-    def _start_server(self):
-        django_handler = django.core.handlers.wsgi.WSGIHandler()
-        container = wsgi.WSGIContainer(django_handler)
-        self.__server = httpserver.HTTPServer(container)
-        self.__server.listen(self._port)
-        self._is_running = True
-        ioloop.IOLoop.instance().start()
-        
-    def start(self):
-        threading.Thread.start(self)
-        
-    def stop(self):
-        pass
-"""
 
 from Views import add_template_path
 add_template_path("web/")
