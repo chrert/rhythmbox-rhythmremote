@@ -37,6 +37,26 @@ def play_entry(entry_id):
     player.play_entry(entry_id)
     return "1"
 
+@bottle.route("/play")
+def play():
+    PlayerControl().play()
+
+@bottle.route("/prev")
+def play_previous():
+    PlayerControl().previous()
+    
+@bottle.route("/next")
+def play_next():
+    PlayerControl().next()
+    
+@bottle.route("/pause")
+def pause():
+    PlayerControl().pause()
+    
+@bottle.route("/stop")
+def stop():
+    PlayerControl().stop()
+
 @bottle.route("/seek/<position:int>")
 def seek(position):
     PlayerControl().seek(position)

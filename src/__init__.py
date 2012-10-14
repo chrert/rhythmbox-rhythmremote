@@ -13,7 +13,7 @@ class WebPlayerPlugin(GObject.Object, Peas.Activatable):
         WebPlayer.initialize(self.object)
         
         print "starting server..."    
-        self.__server = WebServer("localhost", 8001, "webplayer.settings")
+        self.__server = WebServer("0.0.0.0", 8001, "webplayer.settings")
         self.__server.start()
         
     def do_deactivate(self):
