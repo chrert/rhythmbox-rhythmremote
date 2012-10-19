@@ -158,3 +158,12 @@ class PlayerControl(object):
     
     def set_volume(self, volume):
         self.__player.set_volume(volume)
+
+    def get_queue_entries(self):
+        entries = list()
+        for row in self.__queue.get_query_model():
+            entry= row[0]
+            entry_id = entry.get_ulong(RB.RhythmDBPropType.ENTRY_ID)
+            title = entry.get_string(RB.RhythmDBPropType.ARTIST) + " - " + entry.get_string(RB.RhythmDBPropType.TITLE)
+            entries.append((entry_id, title))
+        return entries

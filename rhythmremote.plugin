@@ -4,6 +4,6 @@ Module=src
 IAge=2
 Name=RhythmRemote
 Description=A mobile web interface for Rhythmbox.
-Authors=Christian Ertler
+Authors=Christian Ertler <github@ertler.org>
 Copyright=Copyright © 2012 Christian Ertler
 Website=https://github.com/erti/rhythmbox-rhythmremote

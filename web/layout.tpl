@@ -55,6 +55,12 @@ Contributors:
 				<a data-transition="slidefade" data-direction="reverse" data-icon="back" href="{{backlink[0]}}">{{backlink[1]}}</a>
 				%end
 				<h1>RhythmRemote</h1>
+				<a class="ui-btn-right" id="queue_button" data-rel="popup" data-transition="pop" href="#queue_popup" data-icon="grid">Queue</a>
+				<div id="queue_popup" data-role="popup" data-theme="a" data-position-to="origin" data-shadow="true" data-corners="true">
+                    <ul id="queue_list" data-role="listview" data-inset="true" data-theme="b">
+                        <li data-role="divider" data-theme="a" class="do_not_remove">Queue</li>
+                </ul>
+            </div>
 			</div>
 			
 			<div data-role="content">

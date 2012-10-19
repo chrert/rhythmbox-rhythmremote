@@ -43,7 +43,7 @@ function initialize() {
 			url  : "/add_to_queue/" + entry_id,
 			type : "GET"
 		}).success(function() {
-			$("#poupup_select_" + entry_id).popup("close");
+			$("#popup_select_" + entry_id).popup("close");
 			var entry_name = $link.data("rb-entry-name");
 			$("#popupTooltip > p.tooltip_content").text(
 					entry_name + " added to queue!");
@@ -90,6 +90,9 @@ function playerInfoUpdater(activePage) {
 	
 	var $volumeSlider = $(jqPrefix + ".volumeSlider");
 	var $seekSlider = $(jqPrefix + ".seekSlider");
+	
+	var $queue_list = $(jqPrefix + "#queue_list");
+	var $queue_button = $(jqPrefix + "#queue_button");
 	
 	// disable volume update while dragging
 	$volumeSlider.on("slidestart", function() {
@@ -171,6 +174,20 @@ function playerInfoUpdater(activePage) {
 			// set song information
 			$("div.song_information").toggle(data.play_or_pause);
 			$("span.song_information").text(data.title);
+			
+			if (data.queue_entries.length == 0) {
+				$queue_button.addClass("ui-disabled");
+			} else {
+				$queue_button.removeClass("ui-disabled");
+			}
+			
+			$queue_list.children("li").not(".do_not_remove").remove();
+			$(data.queue_entries).each(function() {
+				var id = $(this)[0];
+				var title = $(this)[1];
+				$queue_list.append($("<li><a href='#' data-rb-entry-id='" + id + "'>" + title + "</a></li>"));
+			});
+			$queue_list.listview("refresh");
 		});
 	}
 }

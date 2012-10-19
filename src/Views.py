@@ -97,7 +97,8 @@ def get_player_info():
             "has_prev"     : player.has_prev(),
             "title"        : player.get_playing_entry_str(),
             "duration"     : player.get_playing_duration(),
-            "position"     : player.get_playing_time()}
+            "position"     : player.get_playing_time(),
+            "queue_entries": player.get_queue_entries()}
 
 def order_set(_set):
     return sorted(list(_set))
