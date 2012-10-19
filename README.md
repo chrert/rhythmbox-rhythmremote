@@ -8,6 +8,8 @@ It's implemented as an Rhythmbox plugin written in python. The plugin starts a l
 
 ![Play track](https://raw.github.com/erti/rhythmbox-rhythmremote/master/screenshots/play.png "Play tracks")
 
+![Queue](https://raw.github.com/erti/rhythmbox-rhythmremote/master/screenshots/queue.png "Queue")
+
 ## Prerequisites
 
 * Rhythmbox 2.96+
@@ -33,9 +35,11 @@ The repository also includes an Eclipse-Project (with PyDev Extension) with conf
 
 ## Functionality
 
-### What works
+### What is working
 
 * Browsing the music-database in a very strict way (Interprets -> Albums -> Tracks)
+* Browsing playlists
+* Adding to queue and play the queue
 * Choose single title to play
 * Play/Pause/Stop
 * Previous/Next (if a playlist was chosen inside Rhythmbox)
@@ -44,9 +48,7 @@ The repository also includes an Eclipse-Project (with PyDev Extension) with conf
 
 ### Feature plans
 
-* Playlist Support
-* Queue Support
 * Enhanced search functionality (just like in Rhythmbox)
 * Cover-Art
 * Localizations
-* Almost feature of standard Rhythmbox
+* Almost every feature of standard Rhythmbox

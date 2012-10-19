@@ -84,13 +84,41 @@ class PlayerControl(object):
         global rbshell
         self.__player = rbshell.props.shell_player
         self.__queue = rbshell.props.queue_source
+        self.__library = rbshell.props.library_source
         self.__dbaccess = DBAccess()
+        self.__playlistManager = rbshell.props.playlist_manager
+        
+    def __loadPlaylists(self):
+        self.__playlists= dict()
+        for playlist in self.__playlistManager.get_playlists():
+            self.__playlists[playlist.props.name] = playlist;
+    
+    def __play_entry(self, entry_id, source):
+        self.__player.set_playing_source(source)
+        self.__player.play_entry(self.__dbaccess.get_entry(entry_id), source)
+        
+    def __get_source_entries(self, source):
+        entries = list()
+        for row in source.get_query_model():
+            entry = row[0]
+            entry_id = entry.get_ulong(RB.RhythmDBPropType.ENTRY_ID)
+            title = entry.get_string(RB.RhythmDBPropType.ARTIST) + " - " + entry.get_string(RB.RhythmDBPropType.TITLE)
+            entries.append((entry_id, title))
+        return entries
         
     def play(self):
         self.__player.play()
         
     def play_entry(self, entry_id):
-        self.__player.play_entry(self.__dbaccess.get_entry(entry_id), self.__queue)
+        self.__play_entry(entry_id, self.__library)
+        
+    def play_entry_from_queue(self, entry_id):
+        self.__play_entry(entry_id, self.__queue)
+        
+    def play_entry_from_playlist(self, entry_id, playlist):
+        self.__loadPlaylists()
+        if (self.__playlists.has_key(playlist)):
+            self.__play_entry(entry_id, self.__playlists[playlist])
         
     def add_entry_to_queue(self, entry_id):
         self.__queue.add_entry(self.__dbaccess.get_entry(entry_id), -1)
@@ -158,12 +186,18 @@ class PlayerControl(object):
     
     def set_volume(self, volume):
         self.__player.set_volume(volume)
-
+    
     def get_queue_entries(self):
-        entries = list()
-        for row in self.__queue.get_query_model():
-            entry= row[0]
-            entry_id = entry.get_ulong(RB.RhythmDBPropType.ENTRY_ID)
-            title = entry.get_string(RB.RhythmDBPropType.ARTIST) + " - " + entry.get_string(RB.RhythmDBPropType.TITLE)
-            entries.append((entry_id, title))
-        return entries
+        return self.__get_source_entries(self.__queue)
+    
+    def get_playlist_names(self):
+        self.__loadPlaylists()
+        return sorted(self.__playlists.keys())
+    
+    def get_playlist_entries(self, playlist):
+        self.__loadPlaylists()
+        if (not self.__playlists.has_key(playlist)):
+            return None
+        else:
+            return self.__get_source_entries(self.__playlists[playlist])
+        

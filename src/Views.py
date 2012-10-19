@@ -26,7 +26,7 @@ def static_script(filepath):
 def index():
     return dict(artists=order_set(DBAccess().get_all_artists()))
 
-@bottle.route("/albums/<artist>")
+@bottle.route("/albums/<artist:path>")
 @bottle.view("albums")
 def albums(artist):
     artist = urllib.unquote_plus(artist)
@@ -34,13 +34,22 @@ def albums(artist):
                 artist=artist,
                 backlink=("/", "Artists"))
 
-@bottle.route("/tracks/<artist>/<album>")
+@bottle.route("/tracks/<artist:path>/<album:path>")
 @bottle.view("tracks")
 def tracks(artist, album):
     artist = urllib.unquote_plus(artist)
     album = urllib.unquote_plus(album)
-    return dict(tracks=order_set(DBAccess().get_tracks_of_album(artist, album)),
+    return dict(tracks=order_track_set(DBAccess().get_tracks_of_album(artist, album)),
                 backlink=("/albums/" + artist, artist))
+    
+@bottle.route("/playlist/<playlist:path>")
+@bottle.view("playlist")
+def playlist(playlist):
+    playlist = urllib.unquote_plus(playlist)
+    return dict(tracks=PlayerControl().get_playlist_entries(playlist),
+                playlist=playlist,
+                backlink=("/", "Home"))
+    
 
 @bottle.route("/play/<entry_id:int>")
 def play_entry(entry_id):
@@ -56,6 +65,14 @@ def add_to_queue(entry_id):
 @bottle.route("/play")
 def play():
     PlayerControl().play()
+    
+@bottle.route("/play_queue/<entry_id:int>")
+def play_queue(entry_id):
+    PlayerControl().play_entry_from_queue(entry_id)
+    
+@bottle.route("/play/<playlist>/<entry_id:int>")
+def play_playlist_entry(playlist, entry_id):
+    PlayerControl().play_entry_from_playlist(entry_id, playlist)
 
 @bottle.route("/prev")
 def play_previous():
@@ -98,7 +115,11 @@ def get_player_info():
             "title"        : player.get_playing_entry_str(),
             "duration"     : player.get_playing_duration(),
             "position"     : player.get_playing_time(),
-            "queue_entries": player.get_queue_entries()}
+            "queue_entries": player.get_queue_entries(),
+            "playlists"    : player.get_playlist_names()}
 
 def order_set(_set):
     return sorted(list(_set))
+
+def order_track_set(_set):
+    return sorted(list(_set), cmp=lambda x,y: cmp(x[1], y[1]))

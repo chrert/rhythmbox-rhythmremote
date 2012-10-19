@@ -55,12 +55,20 @@ Contributors:
 				<a data-transition="slidefade" data-direction="reverse" data-icon="back" href="{{backlink[0]}}">{{backlink[1]}}</a>
 				%end
 				<h1>RhythmRemote</h1>
-				<a class="ui-btn-right" id="queue_button" data-rel="popup" data-transition="pop" href="#queue_popup" data-icon="grid">Queue</a>
+				<div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+				  <a data-role="button" id="queue_button" data-rel="popup" data-transition="pop" href="#queue_popup" data-icon="grid">Queue</a>
+				  <a data-role="button" id="playlists_button" data-rel="popup" data-transition="pop" href="#playlists_popup" data-icon="grid">Playlists</a>
+				</div>
 				<div id="queue_popup" data-role="popup" data-theme="a" data-position-to="origin" data-shadow="true" data-corners="true">
-                    <ul id="queue_list" data-role="listview" data-inset="true" data-theme="b">
-                        <li data-role="divider" data-theme="a" class="do_not_remove">Queue</li>
-                </ul>
-            </div>
+          <ul id="queue_list" data-role="listview" data-inset="true" data-theme="b">
+              <li data-role="divider" data-theme="a" class="do_not_remove">Queue</li>
+          </ul>
+        </div>
+        <div id="playlists_popup" data-role="popup" data-theme="a" data-position-to="origin" data-shadow="true" data-corners="true">
+          <ul id="playlist_list" data-role="listview" data-inset="true" data-theme="b">
+            <li data-role="divider" data-theme="a" class="do_not_remove">Playlists</li>
+          </ul>
+        </div>
 			</div>
 			
 			<div data-role="content">
