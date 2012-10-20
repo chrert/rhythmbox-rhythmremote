@@ -11,18 +11,17 @@
 
 from gi.repository import RB, GLib
         
-rbshell = None
-
-def initialize(shell):
-    global rbshell
-    rbshell = shell
-        
 class DBAccess(object):
     
+    rbshell = None
+    
     def __init__(self):
-        global rbshell
-        self.library = rbshell.props.library_source
-        self.db = rbshell.props.db
+        try:
+            self.library = DBAccess.rbshell.props.library_source
+            self.db = DBAccess.rbshell.props.db
+        except NameError:
+            print "You need to assign DBAccess.rbshell first!"
+            raise
         
     def get_all_artists(self):
         return self.__get_all_of_type(entry_type=RB.RhythmDBPropType.ARTIST)
@@ -80,13 +79,18 @@ class DBAccess(object):
         
 class PlayerControl(object):
     
+    rbshell = None
+    
     def __init__(self):
-        global rbshell
-        self.__player = rbshell.props.shell_player
-        self.__queue = rbshell.props.queue_source
-        self.__library = rbshell.props.library_source
-        self.__dbaccess = DBAccess()
-        self.__playlistManager = rbshell.props.playlist_manager
+        try:
+            self.__player = PlayerControl.rbshell.props.shell_player
+            self.__queue = PlayerControl.rbshell.props.queue_source
+            self.__library = PlayerControl.rbshell.props.library_source
+            self.__dbaccess = DBAccess()
+            self.__playlistManager = PlayerControl.rbshell.props.playlist_manager
+        except NameError:
+            print "You need to assign DBAccess.rbshell first!"
+            raise
         
     def __loadPlaylists(self):
         self.__playlists= dict()

@@ -61,6 +61,3 @@ class WSGIRefWebServer(IWebServer):
     def stop(self):
         GObject.source_remove(self.watch_id)
         self._is_running = False
-
-from Views import add_template_path
-add_template_path("web/")
