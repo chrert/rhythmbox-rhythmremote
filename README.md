@@ -18,6 +18,8 @@ It's implemented as an Rhythmbox plugin written in python. The plugin starts a l
 
 The plugin is currently tested with Rhythmbox 2.96 and 2.97 on Debian testing (wheezy) and Firefox 10+ only.
 
+Due to a [bug](https://bugzilla.gnome.org/show_bug.cgi?id=682294) in current rhythmbox releases (2.96, 2.97) this plugin will currently only work on 64-bit systems.
+
 ## Installation
 
 Simply run the python script make.py without arguments. The script will check the dependencies, create the plugin folder
