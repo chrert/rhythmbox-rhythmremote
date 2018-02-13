@@ -1,5 +1,12 @@
 # RhythmRemote
 
+**This repository is archived (read-only) for various reasons:**
+ * Not enough time to maintain the code
+ * The code is already out-dated
+ * No personal usage of the plugin
+Feel free to fork and use the existing code!
+---
+
 The goal of this project is to create a fully functional mobile web-interface for Rhythmbox.
 It's implemented as an Rhythmbox plugin written in python. The plugin starts a local webserver on 0.0.0.0:8001 (or localhost), which handles the requests of the browser.
 
